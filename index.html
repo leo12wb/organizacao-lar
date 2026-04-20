@@ -7,30 +7,26 @@
 <style>
 :root{
   --p50:#FBEAF0;--p100:#F4C0D1;--p200:#ED93B1;--p400:#D4537E;
-  --p600:#993556;--p800:#72243E;--p900:#4B1528;
-  --g50:#fafafa;--g100:#f3f3f3;--g200:#e5e5e5;--g400:#aaa;--g600:#666;--g800:#333;
+  --p600:#993556;--p800:#72243E;
+  --g400:#aaa;--g600:#666;--g800:#333;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--p50);color:var(--g800);min-height:100vh;padding-bottom:80px}
-
-header{background:linear-gradient(135deg,var(--p600),var(--p400));color:white;padding:50px 16px 14px;text-align:center;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(153,53,86,.25)}
+header{background:linear-gradient(135deg,var(--p600),var(--p400));color:white;padding:18px 16px 14px;text-align:center;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(153,53,86,.25)}
 header h1{font-size:21px;font-weight:700}
 header p{font-size:12px;opacity:.85;margin-top:2px}
-
 nav{display:flex;overflow-x:auto;background:var(--p800);scrollbar-width:none;padding:0 4px}
 nav::-webkit-scrollbar{display:none}
 nav button{flex:0 0 auto;background:none;border:none;color:var(--p100);padding:10px 14px;font-size:13px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
 nav button.active{color:white;border-bottom-color:var(--p200);font-weight:600}
-
 .tab{display:none;padding:14px}
 .tab.active{display:block}
 .card{background:white;border-radius:14px;padding:14px;margin-bottom:12px;border:1px solid var(--p100);box-shadow:0 1px 4px rgba(212,83,126,.07)}
-
-/* day cards — full width, collapsible */
+.sec-title{font-size:15px;font-weight:700;color:var(--p600);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+/* day cards */
 .day-card{background:white;border-radius:14px;border:1.5px solid var(--p100);margin-bottom:12px;overflow:hidden}
 .day-card.today{border-color:var(--p400)}
 .day-hdr{background:var(--p50);padding:11px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none}
-.day-hdr-left{display:flex;align-items:center;gap:8px}
 .day-title{font-size:15px;font-weight:700;color:var(--p600)}
 .today-badge{font-size:10px;background:var(--p400);color:white;border-radius:99px;padding:2px 8px;font-weight:600}
 .day-stats{font-size:12px;color:var(--p400);font-weight:600}
@@ -38,72 +34,68 @@ nav button.active{color:white;border-bottom-color:var(--p200);font-weight:600}
 .day-card.open .chevron{transform:rotate(180deg)}
 .day-body{display:none;padding:0 14px 14px}
 .day-card.open .day-body{display:block}
-
-/* room block */
+/* room */
 .room-block{margin-top:12px;border-radius:10px;border:1px solid var(--p100);overflow:hidden}
 .room-hdr{background:var(--p100);padding:7px 12px;display:flex;align-items:center;justify-content:space-between}
 .room-name{font-size:13px;font-weight:700;color:var(--p800)}
-.room-del{background:none;border:none;color:var(--p600);cursor:pointer;font-size:14px;line-height:1;padding:0 2px}
+.room-del{background:none;border:none;color:var(--p600);cursor:pointer;font-size:14px;line-height:1}
 .room-tasks{padding:4px 12px 8px}
-
 /* task rows */
-.trow{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--p50)}
+.trow{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid var(--p50)}
 .trow:last-child{border-bottom:none}
-.trow input[type=checkbox]{width:19px;height:19px;accent-color:var(--p400);flex-shrink:0;cursor:pointer}
+.trow input[type=checkbox]{width:19px;height:19px;accent-color:var(--p400);flex-shrink:0;cursor:pointer;margin-top:2px}
 .tinfo{flex:1;min-width:0}
 .ttext{font-size:13px;color:var(--g800);line-height:1.35}
-.ttime{font-size:11px;color:var(--p400);font-weight:600;margin-top:1px}
+.ttime{font-size:11px;color:var(--p400);font-weight:600;margin-top:2px}
 .trow.done .ttext{text-decoration:line-through;color:var(--g400)}
 .trow.done .ttime{color:var(--g400)}
-.xbtn{background:none;border:none;color:var(--p200);cursor:pointer;font-size:14px;padding:0 2px;flex-shrink:0}
+.xbtn{background:none;border:none;color:var(--p200);cursor:pointer;font-size:14px;padding:0 2px;flex-shrink:0;margin-top:1px}
 .xbtn:hover{color:var(--p400)}
-
-/* add task inside room */
+/* alert toggle */
+.atoggle{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--g600);cursor:pointer;margin-top:4px;user-select:none}
+.atoggle input{width:13px;height:13px;accent-color:var(--p400);cursor:pointer}
+.atoggle.on{color:var(--p600);font-weight:600}
+/* add forms */
 .add-task-row{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
 .add-task-row input[type=text]{flex:1;min-width:90px;border:1.5px solid var(--p200);border-radius:8px;padding:7px 10px;font-size:13px;outline:none;font-family:inherit}
 .add-task-row input[type=text]:focus{border-color:var(--p400)}
 .add-task-row input[type=time]{border:1.5px solid var(--p200);border-radius:8px;padding:7px 8px;font-size:13px;outline:none;width:105px;flex-shrink:0}
-.add-task-row input[type=time]:focus{border-color:var(--p400)}
 .btn-task{background:var(--p400);color:white;border:none;border-radius:8px;padding:7px 13px;font-size:13px;font-weight:600;cursor:pointer;flex-shrink:0}
-
-/* add room */
 .add-room-row{display:flex;gap:6px;margin-top:12px}
 .add-room-row select{flex:1;border:1.5px solid var(--p200);border-radius:8px;padding:8px 10px;font-size:13px;outline:none;font-family:inherit;background:white}
-.add-room-row select:focus{border-color:var(--p400)}
 .btn-room{background:var(--p600);color:white;border:none;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;flex-shrink:0}
-
-/* progress */
-.prog-wrap{background:var(--p100);border-radius:99px;height:6px;margin-top:8px;overflow:hidden}
-.prog-bar{background:linear-gradient(90deg,var(--p400),var(--p600));height:100%;border-radius:99px;transition:width .4s}
-.prog-txt{font-size:11px;color:var(--p600);text-align:right;margin-top:3px;font-weight:600}
-
-/* generic lists (diario/mensal etc) */
-.grow{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--p50)}
+/* generic rows */
+.grow{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid var(--p50)}
 .grow:last-child{border-bottom:none}
-.grow input[type=checkbox]{width:19px;height:19px;accent-color:var(--p400);flex-shrink:0;cursor:pointer}
+.grow input[type=checkbox]{width:19px;height:19px;accent-color:var(--p400);flex-shrink:0;cursor:pointer;margin-top:2px}
 .grow.done .gtext{text-decoration:line-through;color:var(--g400)}
 .grow.done .gtime{color:var(--g400)}
 .ginfo{flex:1;min-width:0}
 .gtext{font-size:14px;color:var(--g800)}
-.gtime{font-size:11px;color:var(--p400);font-weight:600;margin-top:1px}
-
+.gtime{font-size:11px;color:var(--p400);font-weight:600;margin-top:2px}
 .add-gen-row{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
 .add-gen-row input[type=text]{flex:1;min-width:110px;border:1.5px solid var(--p200);border-radius:8px;padding:8px 10px;font-size:13px;outline:none;font-family:inherit}
 .add-gen-row input[type=text]:focus{border-color:var(--p400)}
 .add-gen-row input[type=time]{border:1.5px solid var(--p200);border-radius:8px;padding:8px 8px;font-size:13px;outline:none;width:105px;flex-shrink:0}
-.add-gen-row input[type=time]:focus{border-color:var(--p400)}
 .btn-gen{background:var(--p400);color:white;border:none;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer}
-
-.sec-title{font-size:15px;font-weight:700;color:var(--p600);margin-bottom:12px;display:flex;align-items:center;gap:6px}
-.empty{text-align:center;color:var(--g400);font-size:13px;padding:12px 0}
-
+/* progress */
+.prog-wrap{background:var(--p100);border-radius:99px;height:6px;margin-top:8px;overflow:hidden}
+.prog-bar{background:linear-gradient(90deg,var(--p400),var(--p600));height:100%;border-radius:99px;transition:width .4s}
+.prog-txt{font-size:11px;color:var(--p600);text-align:right;margin-top:3px;font-weight:600}
+/* summary */
 .sum-bar{background:linear-gradient(135deg,var(--p100),var(--p50));border:1px solid var(--p200);border-radius:14px;padding:14px;margin-bottom:14px;display:flex;justify-content:space-around}
-.sum-item{text-align:center}
-.sum-num{font-size:24px;font-weight:700;color:var(--p600);line-height:1}
-.sum-lbl{font-size:11px;color:var(--p800);margin-top:3px;font-weight:500}
-
+.sum-num{font-size:24px;font-weight:700;color:var(--p600);line-height:1;text-align:center}
+.sum-lbl{font-size:11px;color:var(--p800);margin-top:3px;font-weight:500;text-align:center}
+/* alert items na home */
+.alert-row{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--p50)}
+.alert-row:last-child{border-bottom:none}
+.alert-dot{width:8px;height:8px;border-radius:50%;background:var(--p400);flex-shrink:0;margin-top:5px}
+.alert-info{flex:1;min-width:0}
+.alert-task{font-size:13px;font-weight:600;color:var(--p800)}
+.alert-delay{font-size:12px;color:var(--p400);margin-top:2px}
 .notes-area{width:100%;min-height:140px;border:1.5px solid var(--p200);border-radius:12px;padding:12px;font-size:14px;font-family:inherit;color:var(--g800);resize:vertical;outline:none}
 .notes-area:focus{border-color:var(--p400)}
+.empty{text-align:center;color:var(--g400);font-size:13px;padding:12px 0}
 </style>
 </head>
 <body>
@@ -123,11 +115,14 @@ nav button.active{color:white;border-bottom-color:var(--p200);font-weight:600}
   <button onclick="showTab('notas')">Notas</button>
 </nav>
 
-<div id="tab-resumo" class="tab active"><div class="sum-bar">
-  <div class="sum-item"><div class="sum-num" id="s-d">-</div><div class="sum-lbl">Diário</div></div>
-  <div class="sum-item"><div class="sum-num" id="s-s">-</div><div class="sum-lbl">Semanal</div></div>
-  <div class="sum-item"><div class="sum-num" id="s-m">-</div><div class="sum-lbl">Mensal</div></div>
-</div><div id="resumo-body"></div></div>
+<div id="tab-resumo" class="tab active">
+  <div class="sum-bar">
+    <div><div class="sum-num" id="s-d">-</div><div class="sum-lbl">Diário</div></div>
+    <div><div class="sum-num" id="s-s">-</div><div class="sum-lbl">Semanal</div></div>
+    <div><div class="sum-num" id="s-m">-</div><div class="sum-lbl">Mensal</div></div>
+  </div>
+  <div id="resumo-body"></div>
+</div>
 
 <div id="tab-diario" class="tab"><div class="card">
   <div class="sec-title">☀️ Tarefas Diárias</div>
@@ -135,7 +130,7 @@ nav button.active{color:white;border-bottom-color:var(--p200);font-weight:600}
   <div class="prog-wrap"><div class="prog-bar" id="diario-bar"></div></div>
   <div class="prog-txt" id="diario-txt"></div>
   <div class="add-gen-row">
-    <input type="text" id="diario-inp" placeholder="Nova tarefa..." onkeydown="if(event.key==='Enter')addGen('diario')">
+    <input type="text" id="diario-inp" placeholder="Nova tarefa...">
     <input type="time" id="diario-time">
     <button class="btn-gen" onclick="addGen('diario')">+ Add</button>
   </div>
@@ -149,7 +144,7 @@ nav button.active{color:white;border-bottom-color:var(--p200);font-weight:600}
   <div class="prog-wrap"><div class="prog-bar" id="mensal-bar"></div></div>
   <div class="prog-txt" id="mensal-txt"></div>
   <div class="add-gen-row">
-    <input type="text" id="mensal-inp" placeholder="Nova tarefa..." onkeydown="if(event.key==='Enter')addGen('mensal')">
+    <input type="text" id="mensal-inp" placeholder="Nova tarefa...">
     <input type="time" id="mensal-time">
     <button class="btn-gen" onclick="addGen('mensal')">+ Add</button>
   </div>
@@ -161,7 +156,7 @@ nav button.active{color:white;border-bottom-color:var(--p200);font-weight:600}
   <div class="prog-wrap"><div class="prog-bar" id="bimestral-bar"></div></div>
   <div class="prog-txt" id="bimestral-txt"></div>
   <div class="add-gen-row">
-    <input type="text" id="bimestral-inp" placeholder="Nova tarefa..." onkeydown="if(event.key==='Enter')addGen('bimestral')">
+    <input type="text" id="bimestral-inp" placeholder="Nova tarefa...">
     <input type="time" id="bimestral-time">
     <button class="btn-gen" onclick="addGen('bimestral')">+ Add</button>
   </div>
@@ -173,7 +168,7 @@ nav button.active{color:white;border-bottom-color:var(--p200);font-weight:600}
   <div class="prog-wrap"><div class="prog-bar" id="semestral-bar"></div></div>
   <div class="prog-txt" id="semestral-txt"></div>
   <div class="add-gen-row">
-    <input type="text" id="semestral-inp" placeholder="Nova tarefa..." onkeydown="if(event.key==='Enter')addGen('semestral')">
+    <input type="text" id="semestral-inp" placeholder="Nova tarefa...">
     <input type="time" id="semestral-time">
     <button class="btn-gen" onclick="addGen('semestral')">+ Add</button>
   </div>
@@ -186,317 +181,549 @@ nav button.active{color:white;border-bottom-color:var(--p200);font-weight:600}
 </div></div>
 
 <script>
-const DAYS=['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
-const DAYS_JS=[1,2,3,4,5,6,0];
-const COMODOS=['🛋️ Sala','🍳 Cozinha','🛏️ Quarto','🚿 Banheiro','🧺 Lavanderia','🪟 Varanda','🍽️ Sala de Jantar','🌿 Quintal','🚗 Garagem','🏠 Área Geral'];
+var DAYS    = ['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
+var DAYS_JS = [1,2,3,4,5,6,0];
+var COMODOS = ['🛋️ Sala','🍳 Cozinha','🛏️ Quarto','🚿 Banheiro','🧺 Lavanderia','🪟 Varanda','🍽️ Sala de Jantar','🌿 Quintal','🚗 Garagem','🏠 Área Geral'];
 
-const DEFAULT={
+var DEFAULT = {
   diario:{tasks:[
-    {id:'d1',text:'Varrer a casa',time:'08:00',done:false},
-    {id:'d2',text:'Lavar louça',time:'13:00',done:false},
-    {id:'d3',text:'Arrumar a cama',time:'07:30',done:false},
-    {id:'d4',text:'Juntar brinquedos',time:'18:00',done:false},
-    {id:'d5',text:'Lavar roupas',time:'09:00',done:false},
+    {id:'d1',text:'Varrer a casa',      time:'08:00',done:false,atrasada:false,alertar:true},
+    {id:'d2',text:'Lavar louça',        time:'13:00',done:false,atrasada:false,alertar:true},
+    {id:'d3',text:'Arrumar a cama',     time:'07:30',done:false,atrasada:false,alertar:true},
+    {id:'d4',text:'Juntar brinquedos',  time:'18:00',done:false,atrasada:false,alertar:true},
+    {id:'d5',text:'Lavar roupas',       time:'09:00',done:false,atrasada:false,alertar:true}
   ]},
   semanal:{
     'Segunda':{rooms:[
       {id:'rs1',name:'🛋️ Sala',tasks:[
-        {id:'ts1a',text:'Tirar pó',time:'08:00',done:false},
-        {id:'ts1b',text:'Passar pano',time:'08:30',done:false},
-        {id:'ts1c',text:'Limpar espelhos',time:'09:00',done:false},
-        {id:'ts1d',text:'Tirar teia de aranha',time:'09:20',done:false},
+        {id:'ts1a',text:'Tirar pó',             time:'08:00',done:false,atrasada:false,alertar:true},
+        {id:'ts1b',text:'Passar pano',          time:'08:30',done:false,atrasada:false,alertar:true},
+        {id:'ts1c',text:'Limpar espelhos',      time:'09:00',done:false,atrasada:false,alertar:true},
+        {id:'ts1d',text:'Tirar teia de aranha', time:'09:20',done:false,atrasada:false,alertar:true}
       ]},
       {id:'rs2',name:'🍳 Cozinha',tasks:[
-        {id:'ts2a',text:'Limpar com flanela',time:'10:00',done:false},
-        {id:'ts2b',text:'Limpar microondas',time:'10:20',done:false},
-      ]},
+        {id:'ts2a',text:'Limpar com flanela',time:'10:00',done:false,atrasada:false,alertar:true},
+        {id:'ts2b',text:'Limpar microondas', time:'10:20',done:false,atrasada:false,alertar:true}
+      ]}
     ]},
     'Terça':{rooms:[
       {id:'rt1',name:'🍳 Cozinha',tasks:[
-        {id:'tt1a',text:'Organizar armários',time:'09:00',done:false},
-        {id:'tt1b',text:'Fazer feijão',time:'13:00',done:false},
-      ]},
+        {id:'tt1a',text:'Organizar armários',time:'09:00',done:false,atrasada:false,alertar:true},
+        {id:'tt1b',text:'Fazer feijão',      time:'13:00',done:false,atrasada:false,alertar:true}
+      ]}
     ]},
     'Quarta':{rooms:[
       {id:'rq1',name:'🏠 Área Geral',tasks:[
-        {id:'tq1a',text:'Musculação',time:'07:00',done:false},
-      ]},
+        {id:'tq1a',text:'Musculação',time:'07:00',done:false,atrasada:false,alertar:true}
+      ]}
     ]},
     'Quinta':{rooms:[
       {id:'rqu1',name:'🛏️ Quarto',tasks:[
-        {id:'tqu1a',text:'Trocar roupa de cama',time:'09:00',done:false},
-        {id:'tqu1b',text:'Arrumar guarda-roupa',time:'10:00',done:false},
-      ]},
+        {id:'tqu1a',text:'Trocar roupa de cama', time:'09:00',done:false,atrasada:false,alertar:true},
+        {id:'tqu1b',text:'Arrumar guarda-roupa', time:'10:00',done:false,atrasada:false,alertar:true}
+      ]}
     ]},
     'Sexta':{rooms:[
       {id:'rsx1',name:'🚿 Banheiro',tasks:[
-        {id:'tsx1a',text:'Lavar banheiro',time:'08:00',done:false},
+        {id:'tsx1a',text:'Lavar banheiro',time:'08:00',done:false,atrasada:false,alertar:true}
       ]},
       {id:'rsx2',name:'🍳 Cozinha',tasks:[
-        {id:'tsx2a',text:'Limpar geladeira',time:'09:30',done:false},
-        {id:'tsx2b',text:'Arrumar armários',time:'10:00',done:false},
+        {id:'tsx2a',text:'Limpar geladeira', time:'09:30',done:false,atrasada:false,alertar:true},
+        {id:'tsx2b',text:'Arrumar armários', time:'10:00',done:false,atrasada:false,alertar:true}
       ]},
       {id:'rsx3',name:'🛋️ Sala',tasks:[
-        {id:'tsx3a',text:'Limpar janelas',time:'11:00',done:false},
-        {id:'tsx3b',text:'Lavar calçados',time:'11:30',done:false},
-      ]},
+        {id:'tsx3a',text:'Limpar janelas', time:'11:00',done:false,atrasada:false,alertar:true},
+        {id:'tsx3b',text:'Lavar calçados', time:'11:30',done:false,atrasada:false,alertar:true}
+      ]}
     ]},
     'Sábado':{rooms:[
       {id:'rsb1',name:'🍳 Cozinha',tasks:[
-        {id:'tsb1a',text:'Pão de queijo',time:'09:00',done:false},
-        {id:'tsb1b',text:'Hambúrguer',time:'11:00',done:false},
-        {id:'tsb1c',text:'Feijão',time:'13:00',done:false},
-        {id:'tsb1d',text:'Farofa',time:'13:30',done:false},
-        {id:'tsb1e',text:'Molho de tomate',time:'14:00',done:false},
-        {id:'tsb1f',text:'Caldo de carne',time:'14:30',done:false},
-        {id:'tsb1g',text:'Marmitas',time:'15:00',done:false},
-      ]},
+        {id:'tsb1a',text:'Pão de queijo',    time:'09:00',done:false,atrasada:false,alertar:true},
+        {id:'tsb1b',text:'Hambúrguer',       time:'11:00',done:false,atrasada:false,alertar:true},
+        {id:'tsb1c',text:'Feijão',           time:'13:00',done:false,atrasada:false,alertar:true},
+        {id:'tsb1d',text:'Farofa',           time:'13:30',done:false,atrasada:false,alertar:true},
+        {id:'tsb1e',text:'Molho de tomate',  time:'14:00',done:false,atrasada:false,alertar:true},
+        {id:'tsb1f',text:'Caldo de carne',   time:'14:30',done:false,atrasada:false,alertar:true},
+        {id:'tsb1g',text:'Marmitas',         time:'15:00',done:false,atrasada:false,alertar:true}
+      ]}
     ]},
     'Domingo':{rooms:[
       {id:'rdo1',name:'🛏️ Quarto',tasks:[
-        {id:'tdo1a',text:'Guardar roupas',time:'09:00',done:false},
-        {id:'tdo1b',text:'Lavar vasilha',time:'09:30',done:false},
+        {id:'tdo1a',text:'Guardar roupas',time:'09:00',done:false,atrasada:false,alertar:true},
+        {id:'tdo1b',text:'Lavar vasilha', time:'09:30',done:false,atrasada:false,alertar:true}
       ]},
       {id:'rdo2',name:'🍳 Cozinha',tasks:[
-        {id:'tdo2a',text:'Mini pizza',time:'11:00',done:false},
-        {id:'tdo2b',text:'Bolinhos',time:'11:30',done:false},
-        {id:'tdo2c',text:'Comida crianças',time:'12:00',done:false},
-      ]},
-    ]},
+        {id:'tdo2a',text:'Mini pizza',       time:'11:00',done:false,atrasada:false,alertar:true},
+        {id:'tdo2b',text:'Bolinhos',         time:'11:30',done:false,atrasada:false,alertar:true},
+        {id:'tdo2c',text:'Comida crianças',  time:'12:00',done:false,atrasada:false,alertar:true}
+      ]}
+    ]}
   },
   mensal:{tasks:[
-    {id:'m1',text:'Arrumar armários da piscina',time:'',done:false},
-    {id:'m2',text:'Limpar máquina (desincruste)',time:'',done:false},
-    {id:'m3',text:'Limpar sofá',time:'',done:false},
+    {id:'m1',text:'Arrumar armários da piscina',  time:'',done:false,atrasada:false,alertar:true},
+    {id:'m2',text:'Limpar máquina (desincruste)', time:'',done:false,atrasada:false,alertar:true},
+    {id:'m3',text:'Limpar sofá',                  time:'',done:false,atrasada:false,alertar:true}
   ]},
   bimestral:{tasks:[
-    {id:'b1',text:'Organizar brinquedos',time:'',done:false},
-    {id:'b2',text:'Despensa',time:'',done:false},
+    {id:'b1',text:'Organizar brinquedos',time:'',done:false,atrasada:false,alertar:true},
+    {id:'b2',text:'Despensa',            time:'',done:false,atrasada:false,alertar:true}
   ]},
   semestral:{tasks:[]},
   notas:''
 };
 
-function uid(){return 'i'+Math.random().toString(36).substr(2,8)}
-function load(){try{const s=localStorage.getItem('lar3');return s?JSON.parse(s):JSON.parse(JSON.stringify(DEFAULT))}catch(e){return JSON.parse(JSON.stringify(DEFAULT))}}
-function save(){localStorage.setItem('lar3',JSON.stringify(D))}
-let D=load();
+/* ─── utils ─── */
+function uid(){ return 'i'+Math.random().toString(36).substr(2,8); }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function todayStr(){ return new Date().toISOString().slice(0,10); }
 
-// ensure all days exist
-DAYS.forEach(day=>{
-  if(!D.semanal[day]){D.semanal[day]={rooms:[]}}
-  if(Array.isArray(D.semanal[day].tasks)){
-    D.semanal[day]={rooms:[{id:uid(),name:'🏠 Área Geral',tasks:D.semanal[day].tasks.map(t=>({...t,time:t.time||''}))}]};
+/* ─── storage ─── */
+function load(){
+  try{ var s=localStorage.getItem('lar5'); return s?JSON.parse(s):JSON.parse(JSON.stringify(DEFAULT)); }
+  catch(e){ return JSON.parse(JSON.stringify(DEFAULT)); }
+}
+function save(){ localStorage.setItem('lar5',JSON.stringify(D)); }
+var D = load();
+
+/* migrate: set alertar=true on any task that has alertar undefined or false from old saves */
+function migrateAlerts(){
+  for(var i=0;i<D.diario.tasks.length;i++){
+    if(D.diario.tasks[i].alertar===undefined||D.diario.tasks[i].alertar===false) D.diario.tasks[i].alertar=true;
   }
-  if(!D.semanal[day].rooms)D.semanal[day].rooms=[];
-});
+  var cats=['mensal','bimestral','semestral'];
+  for(var ci=0;ci<cats.length;ci++){
+    for(var i=0;i<D[cats[ci]].tasks.length;i++){
+      if(D[cats[ci]].tasks[i].alertar===undefined||D[cats[ci]].tasks[i].alertar===false) D[cats[ci]].tasks[i].alertar=true;
+    }
+  }
+  for(var di=0;di<DAYS.length;di++){
+    var rs=D.semanal[DAYS[di]].rooms||[];
+    for(var ri=0;ri<rs.length;ri++){
+      for(var ti=0;ti<rs[ri].tasks.length;ti++){
+        if(rs[ri].tasks[ti].alertar===undefined||rs[ri].tasks[ti].alertar===false) rs[ri].tasks[ti].alertar=true;
+      }
+    }
+  }
+  save();
+}
 
+/* ensure all days exist */
+for(var _di=0;_di<DAYS.length;_di++){
+  var _d=DAYS[_di];
+  if(!D.semanal[_d]||!D.semanal[_d].rooms) D.semanal[_d]={rooms:[]};
+}
+
+/* ─── daily reset ─── */
+function checkDailyReset(){
+  var today    = todayStr();
+  var lastReset= localStorage.getItem('lar5_reset');
+  if(lastReset===today) return;
+
+  /* monthly reset on day 1 */
+  var now       = new Date();
+  var lastDate  = lastReset ? new Date(lastReset) : null;
+  var newMonth  = !lastDate || now.getFullYear()>lastDate.getFullYear() || now.getMonth()>lastDate.getMonth();
+  if(now.getDate()===1 || newMonth){
+    for(var di=0;di<DAYS.length;di++){
+      var rs=D.semanal[DAYS[di]].rooms;
+      for(var ri=0;ri<rs.length;ri++)
+        for(var ti=0;ti<rs[ri].tasks.length;ti++){ rs[ri].tasks[ti].done=false; rs[ri].tasks[ti].atrasada=false; }
+    }
+  }
+
+  /* mark yesterday's semanal tasks as atrasada */
+  var yest=new Date(); yest.setDate(yest.getDate()-1);
+  var yIdx=DAYS_JS.indexOf(yest.getDay());
+  if(yIdx>=0){
+    var yrs=D.semanal[DAYS[yIdx]].rooms;
+    for(var ri=0;ri<yrs.length;ri++)
+      for(var ti=0;ti<yrs[ri].tasks.length;ti++)
+        if(!yrs[ri].tasks[ti].done) yrs[ri].tasks[ti].atrasada=true;
+  }
+
+  /* diário: undone → atrasada; done → reset */
+  for(var i=0;i<D.diario.tasks.length;i++){
+    var t=D.diario.tasks[i];
+    if(!t.done){ t.atrasada=true; } else { t.done=false; t.atrasada=false; }
+  }
+
+  localStorage.setItem('lar5_reset',today);
+  save();
+}
+
+/* ─── delay helper ─── */
+/* returns minutes the task is overdue (positive = late), or null if no time */
+function minutesLate(timeStr){
+  if(!timeStr) return null;
+  var now  = new Date();
+  var parts= timeStr.split(':');
+  var due  = new Date(now.getFullYear(),now.getMonth(),now.getDate(),parseInt(parts[0]),parseInt(parts[1]),0);
+  var diff = now - due; /* ms */
+  return Math.floor(diff/60000);
+}
+
+function fmtDelay(mins){
+  if(mins<=0) return null;
+  if(mins<60){
+    return mins+'min atrasada';
+  }
+  var h = Math.floor(mins/60);
+  var m = mins%60;
+  return h+'h'+(m>0?' '+m+'min':'')+' atrasada';
+}
+
+/* ─── tab navigation ─── */
 function showTab(name){
-  document.querySelectorAll('.tab').forEach(e=>e.classList.remove('active'));
-  document.querySelectorAll('nav button').forEach(e=>e.classList.remove('active'));
+  var tabs=document.querySelectorAll('.tab');
+  for(var i=0;i<tabs.length;i++) tabs[i].classList.remove('active');
+  var btns=document.querySelectorAll('nav button');
+  for(var i=0;i<btns.length;i++) btns[i].classList.remove('active');
   document.getElementById('tab-'+name).classList.add('active');
-  ['resumo','diario','semanal','mensal','bimestral','semestral','notas'].forEach((n,i)=>{
-    if(n===name)document.querySelectorAll('nav button')[i].classList.add('active');
-  });
+  var names=['resumo','diario','semanal','mensal','bimestral','semestral','notas'];
+  for(var i=0;i<names.length;i++) if(names[i]===name) btns[i].classList.add('active');
   renderAll();
 }
 
-/* ── generic (diario/mensal/bimestral/semestral) ── */
+/* ─── alert toggle ─── */
+function togAlert(cat,id){
+  for(var i=0;i<D[cat].tasks.length;i++){
+    if(D[cat].tasks[i].id===id){ D[cat].tasks[i].alertar=!D[cat].tasks[i].alertar; break; }
+  }
+  save(); renderAll();
+}
+function togAlertRoom(day,roomId,taskId){
+  var rs=D.semanal[day].rooms;
+  for(var ri=0;ri<rs.length;ri++){
+    if(rs[ri].id===roomId){
+      for(var ti=0;ti<rs[ri].tasks.length;ti++){
+        if(rs[ri].tasks[ti].id===taskId){ rs[ri].tasks[ti].alertar=!rs[ri].tasks[ti].alertar; break; }
+      } break;
+    }
+  }
+  save(); renderAll();
+}
+
+/* ─── generic lists ─── */
 function renderGen(cat){
-  const list=document.getElementById(cat+'-list');
-  const tasks=D[cat].tasks;
-  if(!tasks.length){list.innerHTML='<div class="empty">Nenhuma tarefa ainda.</div>';updProg(cat,[]);return}
-  const sorted=[...tasks].sort((a,b)=>(a.time||'99:99').localeCompare(b.time||'99:99'));
-  list.innerHTML=sorted.map(t=>`
-    <div class="grow${t.done?' done':''}">
-      <input type="checkbox" ${t.done?'checked':''} onchange="togGen('${cat}','${t.id}')">
-      <div class="ginfo">
-        <div class="gtext">${esc(t.text)}</div>
-        ${t.time?`<div class="gtime">⏰ ${t.time}</div>`:''}
-      </div>
-      <button class="xbtn" onclick="delGen('${cat}','${t.id}')">✕</button>
-    </div>`).join('');
+  var list=document.getElementById(cat+'-list');
+  var tasks=D[cat].tasks;
+  if(!tasks.length){ list.innerHTML='<div class="empty">Nenhuma tarefa ainda.</div>'; updProg(cat,[]); return; }
+  var sorted=tasks.slice().sort(function(a,b){ return (a.time||'99:99').localeCompare(b.time||'99:99'); });
+  var html='';
+  for(var i=0;i<sorted.length;i++){
+    var t=sorted[i];
+    html+='<div class="grow'+(t.done?' done':'')+'">';
+    html+='<input type="checkbox"'+(t.done?' checked':'')+' onchange="togGen(\''+cat+'\',\''+t.id+'\')" style="margin-top:3px"/>';
+    html+='<div class="ginfo">';
+    html+='<div class="gtext">'+esc(t.text)+'</div>';
+    if(t.time) html+='<div class="gtime">⏰ '+t.time+'</div>';
+    html+='<label class="atoggle'+(t.alertar?' on':'')+'">';
+    html+='<input type="checkbox"'+(t.alertar?' checked':'')+' onchange="togAlert(\''+cat+'\',\''+t.id+'\')"/> Me alertar</label>';
+    html+='</div>';
+    html+='<button class="xbtn" onclick="delGen(\''+cat+'\',\''+t.id+'\')">✕</button>';
+    html+='</div>';
+  }
+  list.innerHTML=html;
   updProg(cat,tasks);
 }
+
 function updProg(cat,tasks){
-  const bar=document.getElementById(cat+'-bar');
-  const txt=document.getElementById(cat+'-txt');
-  if(!bar||!txt)return;
-  const done=tasks.filter(t=>t.done).length;
-  bar.style.width=(tasks.length?Math.round(done/tasks.length*100):0)+'%';
+  var bar=document.getElementById(cat+'-bar'), txt=document.getElementById(cat+'-txt');
+  if(!bar||!txt) return;
+  var done=0; for(var i=0;i<tasks.length;i++) if(tasks[i].done) done++;
+  var pct=tasks.length?Math.round(done/tasks.length*100):0;
+  bar.style.width=pct+'%';
   txt.textContent=done+'/'+tasks.length+' concluídas';
 }
-function togGen(cat,id){const t=D[cat].tasks.find(x=>x.id===id);if(t)t.done=!t.done;save();renderAll()}
-function delGen(cat,id){D[cat].tasks=D[cat].tasks.filter(x=>x.id!==id);save();renderAll()}
+
+function togGen(cat,id){
+  for(var i=0;i<D[cat].tasks.length;i++){
+    if(D[cat].tasks[i].id===id){
+      D[cat].tasks[i].done=!D[cat].tasks[i].done;
+      if(D[cat].tasks[i].done) D[cat].tasks[i].atrasada=false;
+      break;
+    }
+  }
+  save(); renderAll();
+}
+function delGen(cat,id){ D[cat].tasks=D[cat].tasks.filter(function(t){return t.id!==id;}); save(); renderAll(); }
 function addGen(cat){
-  const inp=document.getElementById(cat+'-inp');
-  const ti=document.getElementById(cat+'-time');
-  const text=inp.value.trim();if(!text)return;
-  D[cat].tasks.push({id:uid(),text,time:ti.value||'',done:false});
-  inp.value='';ti.value='';save();renderAll();
+  var inp=document.getElementById(cat+'-inp'), ti=document.getElementById(cat+'-time');
+  var text=inp.value.trim(); if(!text) return;
+  D[cat].tasks.push({id:uid(),text:text,time:ti.value||'',done:false,atrasada:false,alertar:true});
+  inp.value=''; ti.value=''; save(); renderAll();
 }
 
-/* ── semanal ── */
-function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
-
+/* ─── semanal ─── */
 function renderSemanal(){
-  const todayJs=new Date().getDay();
-  const body=document.getElementById('semanal-body');
+  var todayJs=new Date().getDay();
+  var body=document.getElementById('semanal-body');
   body.innerHTML='';
-  DAYS.forEach((day,i)=>{
-    const isToday=DAYS_JS[i]===todayJs;
-    const dayData=D.semanal[day];
-    const allT=dayData.rooms.flatMap(r=>r.tasks);
-    const done=allT.filter(t=>t.done).length;
-    const total=allT.length;
-    const pct=total?Math.round(done/total*100):0;
+  for(var di=0;di<DAYS.length;di++){
+    var day=DAYS[di], isToday=DAYS_JS[di]===todayJs;
+    var dayData=D.semanal[day];
+    var allT=[]; for(var ri=0;ri<dayData.rooms.length;ri++) for(var ti=0;ti<dayData.rooms[ri].tasks.length;ti++) allT.push(dayData.rooms[ri].tasks[ti]);
+    var done=0; for(var i=0;i<allT.length;i++) if(allT[i].done) done++;
+    var pct=allT.length?Math.round(done/allT.length*100):0;
 
-    const roomsHtml=dayData.rooms.length===0
-      ?'<div class="empty" style="margin-top:10px">Nenhum cômodo. Adicione abaixo!</div>'
-      :dayData.rooms.map(room=>{
-        const sorted=[...room.tasks].sort((a,b)=>(a.time||'99:99').localeCompare(b.time||'99:99'));
-        const tHtml=sorted.length===0
-          ?'<div class="empty" style="font-size:12px;padding:4px 0">Sem tarefas</div>'
-          :sorted.map(t=>`
-            <div class="trow${t.done?' done':''}">
-              <input type="checkbox" ${t.done?'checked':''} onchange="togRoom('${esc(day)}','${room.id}','${t.id}')">
-              <div class="tinfo">
-                <div class="ttext">${esc(t.text)}</div>
-                ${t.time?`<div class="ttime">⏰ ${t.time}</div>`:''}
-              </div>
-              <button class="xbtn" onclick="delRoomTask('${esc(day)}','${room.id}','${t.id}')">✕</button>
-            </div>`).join('');
-        return `<div class="room-block">
-          <div class="room-hdr">
-            <span class="room-name">${esc(room.name)}</span>
-            <button class="room-del" onclick="delRoom('${esc(day)}','${room.id}')" title="Remover cômodo">🗑️</button>
-          </div>
-          <div class="room-tasks">
-            ${tHtml}
-            <div class="add-task-row" style="margin-top:8px">
-              <input type="text" id="tinp-${room.id}" placeholder="Nova tarefa..." onkeydown="if(event.key==='Enter')addRoomTask('${esc(day)}','${room.id}')">
-              <input type="time" id="tti-${room.id}">
-              <button class="btn-task" onclick="addRoomTask('${esc(day)}','${room.id}')">+ Add</button>
-            </div>
-          </div>
-        </div>`;
-      }).join('');
+    /* rooms html */
+    var roomsHtml='';
+    if(!dayData.rooms.length){
+      roomsHtml='<div class="empty" style="margin-top:10px">Nenhum cômodo. Adicione abaixo!</div>';
+    } else {
+      for(var ri=0;ri<dayData.rooms.length;ri++){
+        var room=dayData.rooms[ri];
+        var sortedT=room.tasks.slice().sort(function(a,b){return (a.time||'99:99').localeCompare(b.time||'99:99');});
+        var tHtml='';
+        if(!sortedT.length){
+          tHtml='<div class="empty" style="font-size:12px;padding:4px 0">Sem tarefas</div>';
+        } else {
+          for(var ti=0;ti<sortedT.length;ti++){
+            var t=sortedT[ti];
+            tHtml+='<div class="trow'+(t.done?' done':'')+'">';
+            tHtml+='<input type="checkbox"'+(t.done?' checked':'')+' onchange="togRoom(\''+esc(day)+'\',\''+room.id+'\',\''+t.id+'\')"/>';
+            tHtml+='<div class="tinfo">';
+            tHtml+='<div class="ttext">'+esc(t.text)+'</div>';
+            if(t.time) tHtml+='<div class="ttime">⏰ '+t.time+'</div>';
+            tHtml+='<label class="atoggle'+(t.alertar?' on':'')+'">';
+            tHtml+='<input type="checkbox"'+(t.alertar?' checked':'')+' onchange="togAlertRoom(\''+esc(day)+'\',\''+room.id+'\',\''+t.id+'\')"/> Me alertar</label>';
+            tHtml+='</div>';
+            tHtml+='<button class="xbtn" onclick="delRoomTask(\''+esc(day)+'\',\''+room.id+'\',\''+t.id+'\')">✕</button>';
+            tHtml+='</div>';
+          }
+        }
+        var roomHtml='<div class="room-block">';
+        roomHtml+='<div class="room-hdr"><span class="room-name">'+esc(room.name)+'</span>';
+        roomHtml+='<button class="room-del" onclick="delRoom(\''+esc(day)+'\',\''+room.id+'\')">🗑️</button></div>';
+        roomHtml+='<div class="room-tasks">'+tHtml;
+        roomHtml+='<div class="add-task-row" style="margin-top:8px">';
+        roomHtml+='<input type="text" id="tinp-'+room.id+'" placeholder="Nova tarefa..."/>';
+        roomHtml+='<input type="time" id="tti-'+room.id+'"/>';
+        roomHtml+='<button class="btn-task" onclick="addRoomTask(\''+esc(day)+'\',\''+room.id+'\')">+ Add</button>';
+        roomHtml+='</div></div></div>';
+        roomsHtml+=roomHtml;
+      }
+    }
+    var opts=''; for(var ci=0;ci<COMODOS.length;ci++) opts+='<option value="'+esc(COMODOS[ci])+'">'+COMODOS[ci]+'</option>';
 
-    const opts=COMODOS.map(c=>`<option value="${esc(c)}">${c}</option>`).join('');
-
-    const card=document.createElement('div');
+    var card=document.createElement('div');
     card.className='day-card'+(isToday?' today':'');
     card.id='dc-'+day;
-    card.innerHTML=`
-      <div class="day-hdr" onclick="togDay('${esc(day)}')">
-        <div class="day-hdr-left">
-          <span class="day-title">${day}</span>
-          ${isToday?'<span class="today-badge">Hoje</span>':''}
-        </div>
-        <div style="display:flex;align-items:center;gap:8px">
-          <span class="day-stats">${done}/${total}</span>
-          <span class="chevron">▼</span>
-        </div>
-      </div>
-      <div class="day-body">
-        <div class="prog-wrap" style="margin:10px 0 4px"><div class="prog-bar" style="width:${pct}%"></div></div>
-        ${roomsHtml}
-        <div class="add-room-row" style="margin-top:12px">
-          <select id="rsel-${esc(day)}">${opts}</select>
-          <button class="btn-room" onclick="addRoom('${esc(day)}')">+ Cômodo</button>
-        </div>
-      </div>`;
+    var h='';
+    h+='<div class="day-hdr" onclick="togDay(\''+esc(day)+'\')">';
+    h+='<div style="display:flex;align-items:center;gap:8px"><span class="day-title">'+day+'</span>';
+    if(isToday) h+='<span class="today-badge">Hoje</span>';
+    h+='</div><div style="display:flex;align-items:center;gap:8px">';
+    h+='<span class="day-stats">'+done+'/'+allT.length+'</span><span class="chevron">▼</span></div></div>';
+    h+='<div class="day-body">';
+    h+='<div class="prog-wrap" style="margin:10px 0 4px"><div class="prog-bar" style="width:'+pct+'%"></div></div>';
+    h+=roomsHtml;
+    h+='<div class="add-room-row" style="margin-top:12px">';
+    h+='<select id="rsel-'+esc(day)+'">'+opts+'</select>';
+    h+='<button class="btn-room" onclick="addRoom(\''+esc(day)+'\')">+ Cômodo</button></div></div>';
+    card.innerHTML=h;
     body.appendChild(card);
-  });
+  }
 }
 
-function togDay(day){document.getElementById('dc-'+day).classList.toggle('open')}
+function togDay(day){ var c=document.getElementById('dc-'+day); if(c) c.classList.toggle('open'); }
+
 function togRoom(day,roomId,taskId){
-  const r=D.semanal[day].rooms.find(x=>x.id===roomId);
-  const t=r&&r.tasks.find(x=>x.id===taskId);
-  if(t)t.done=!t.done;save();renderAll();
+  var rs=D.semanal[day].rooms;
+  for(var ri=0;ri<rs.length;ri++) if(rs[ri].id===roomId){
+    for(var ti=0;ti<rs[ri].tasks.length;ti++) if(rs[ri].tasks[ti].id===taskId){ rs[ri].tasks[ti].done=!rs[ri].tasks[ti].done; break; }
+    break;
+  }
+  save(); renderAll();
 }
 function delRoomTask(day,roomId,taskId){
-  const r=D.semanal[day].rooms.find(x=>x.id===roomId);
-  if(r)r.tasks=r.tasks.filter(x=>x.id!==taskId);save();renderAll();
+  var rs=D.semanal[day].rooms;
+  for(var ri=0;ri<rs.length;ri++) if(rs[ri].id===roomId){ rs[ri].tasks=rs[ri].tasks.filter(function(t){return t.id!==taskId;}); break; }
+  save(); renderAll();
 }
 function addRoomTask(day,roomId){
-  const inp=document.getElementById('tinp-'+roomId);
-  const ti=document.getElementById('tti-'+roomId);
-  if(!inp)return;
-  const text=inp.value.trim();if(!text)return;
-  const r=D.semanal[day].rooms.find(x=>x.id===roomId);
-  if(!r)return;
-  r.tasks.push({id:uid(),text,time:ti.value||'',done:false});
-  inp.value='';ti.value='';save();renderAll();
+  var inp=document.getElementById('tinp-'+roomId), ti=document.getElementById('tti-'+roomId);
+  if(!inp) return; var text=inp.value.trim(); if(!text) return;
+  var rs=D.semanal[day].rooms;
+  for(var ri=0;ri<rs.length;ri++) if(rs[ri].id===roomId){ rs[ri].tasks.push({id:uid(),text:text,time:ti.value||'',done:false,atrasada:false,alertar:true}); break; }
+  inp.value=''; ti.value=''; save(); renderAll();
 }
 function addRoom(day){
-  const sel=document.getElementById('rsel-'+day);
-  if(!sel)return;
-  D.semanal[day].rooms.push({id:uid(),name:sel.value,tasks:[]});
-  save();renderAll();
+  var sel=document.getElementById('rsel-'+day); if(!sel) return;
+  D.semanal[day].rooms.push({id:uid(),name:sel.value,tasks:[]}); save(); renderAll();
 }
 function delRoom(day,roomId){
-  if(!confirm('Remover cômodo e todas as tarefas?'))return;
-  D.semanal[day].rooms=D.semanal[day].rooms.filter(r=>r.id!==roomId);
-  save();renderAll();
+  if(!confirm('Remover cômodo e todas as tarefas?')) return;
+  D.semanal[day].rooms=D.semanal[day].rooms.filter(function(r){return r.id!==roomId;}); save(); renderAll();
+}
+function togRoomAtrasada(day,roomId,taskId){
+  var rs=D.semanal[day].rooms;
+  for(var ri=0;ri<rs.length;ri++) if(rs[ri].id===roomId){
+    for(var ti=0;ti<rs[ri].tasks.length;ti++) if(rs[ri].tasks[ti].id===taskId){ rs[ri].tasks[ti].done=true; rs[ri].tasks[ti].atrasada=false; break; }
+    break;
+  }
+  save(); renderAll();
 }
 
-/* ── resumo ── */
+/* ─── resumo ─── */
 function renderResumo(){
-  const dd=D.diario.tasks.filter(t=>t.done).length,dt=D.diario.tasks.length;
+  /* counters */
+  var dd=0,dt=D.diario.tasks.length;
+  for(var i=0;i<D.diario.tasks.length;i++) if(D.diario.tasks[i].done) dd++;
   document.getElementById('s-d').textContent=dd+'/'+dt;
-  let sd=0,st=0;
-  DAYS.forEach(d=>{D.semanal[d].rooms.forEach(r=>{sd+=r.tasks.filter(t=>t.done).length;st+=r.tasks.length})});
+  var sd=0,st=0;
+  for(var di=0;di<DAYS.length;di++){ var rs=D.semanal[DAYS[di]].rooms; for(var ri=0;ri<rs.length;ri++){ st+=rs[ri].tasks.length; for(var ti=0;ti<rs[ri].tasks.length;ti++) if(rs[ri].tasks[ti].done) sd++; } }
   document.getElementById('s-s').textContent=sd+'/'+st;
-  const md=D.mensal.tasks.filter(t=>t.done).length;
+  var md=0; for(var i=0;i<D.mensal.tasks.length;i++) if(D.mensal.tasks[i].done) md++;
   document.getElementById('s-m').textContent=md+'/'+D.mensal.tasks.length;
 
-  const todayIdx=DAYS_JS.indexOf(new Date().getDay());
-  const todayName=todayIdx>=0?DAYS[todayIdx]:null;
-  let html='';
+  var html='';
 
+  /* ── 1. Alertas de atraso em tempo real ── */
+  var alertas=[];
+
+  /* diário: alertar=true, não feita, tem horário, já passou */
+  for(var i=0;i<D.diario.tasks.length;i++){
+    var t=D.diario.tasks[i];
+    if(t.alertar && !t.done && t.time){
+      var mins=minutesLate(t.time);
+      if(mins!==null && mins>0) alertas.push({text:t.text,time:t.time,delay:fmtDelay(mins),label:''});
+    }
+  }
+
+  /* semanal de hoje: alertar=true, não feita, tem horário, já passou */
+  var todayIdx=DAYS_JS.indexOf(new Date().getDay());
+  var todayName=todayIdx>=0?DAYS[todayIdx]:null;
   if(todayName){
-    const rooms=D.semanal[todayName].rooms;
-    const allT=rooms.flatMap(r=>r.tasks);
-    const pending=[...allT].filter(t=>!t.done).sort((a,b)=>(a.time||'99:99').localeCompare(b.time||'99:99'));
-    html+=`<div class="card"><div class="sec-title">📋 Hoje — ${todayName}</div>`;
-    if(!allT.length){html+='<div class="empty">Sem tarefas semanais para hoje.</div>'}
-    else if(!pending.length){html+='<div style="color:var(--p400);font-size:14px;padding:8px 0">✅ Todas concluídas!</div>'}
-    else{html+=pending.slice(0,6).map(t=>{
-      const room=rooms.find(r=>r.tasks.some(x=>x.id===t.id));
-      return `<div class="grow"><input type="checkbox" onchange="togRoom('${todayName}','${room?room.id:''}','${t.id}')">
-        <div class="ginfo"><div class="gtext">${esc(t.text)} <span style="font-size:11px;color:var(--p400)">${room?'· '+room.name:''}</span></div>
-        ${t.time?`<div class="gtime">⏰ ${t.time}</div>`:''}</div></div>`;
-    }).join('')}
+    var rs=D.semanal[todayName].rooms;
+    for(var ri=0;ri<rs.length;ri++){
+      for(var ti=0;ti<rs[ri].tasks.length;ti++){
+        var t=rs[ri].tasks[ti];
+        if(t.alertar && !t.done && t.time){
+          var mins=minutesLate(t.time);
+          if(mins!==null && mins>0) alertas.push({text:t.text,time:t.time,delay:fmtDelay(mins),label:rs[ri].name});
+        }
+      }
+    }
+  }
+
+  if(alertas.length){
+    html+='<div class="card"><div class="sec-title">⏰ Tarefas em atraso agora</div>';
+    for(var i=0;i<alertas.length;i++){
+      var a=alertas[i];
+      html+='<div class="alert-row">';
+      html+='<div class="alert-dot"></div>';
+      html+='<div class="alert-info">';
+      html+='<div class="alert-task">'+esc(a.text)+(a.label?' <span style="font-size:11px;font-weight:400;color:var(--p400)">· '+esc(a.label)+'</span>':'')+'</div>';
+      html+='<div class="alert-delay">Prevista às '+a.time+' — <strong>'+a.delay+'</strong></div>';
+      html+='</div></div>';
+    }
     html+='</div>';
   }
 
-  const dp=D.diario.tasks.filter(t=>!t.done).sort((a,b)=>(a.time||'99:99').localeCompare(b.time||'99:99'));
-  html+=`<div class="card"><div class="sec-title">☀️ Diário pendente</div>`;
-  if(!dp.length){html+='<div style="color:var(--p400);font-size:14px;padding:8px 0">✅ Tudo feito hoje!</div>'}
-  else{html+=dp.map(t=>`<div class="grow"><input type="checkbox" onchange="togGen('diario','${t.id}')">
-    <div class="ginfo"><div class="gtext">${esc(t.text)}</div>${t.time?`<div class="gtime">⏰ ${t.time}</div>`:''}</div></div>`).join('')}
-  html+=`<div class="prog-wrap" style="margin-top:10px"><div class="prog-bar" style="width:${dt?Math.round(dd/dt*100):0}%"></div></div></div>`;
+  /* ── 2. Tarefas atrasadas de ontem ── */
+  var atrasadasD=D.diario.tasks.filter(function(t){return t.atrasada&&!t.done;});
+  var atrasadasS=[];
+  for(var di=0;di<DAYS.length;di++){
+    var rs=D.semanal[DAYS[di]].rooms;
+    for(var ri=0;ri<rs.length;ri++) for(var ti=0;ti<rs[ri].tasks.length;ti++){
+      var ts=rs[ri].tasks[ti];
+      if(ts.atrasada&&!ts.done) atrasadasS.push({task:ts,room:rs[ri],day:DAYS[di]});
+    }
+  }
+  if(atrasadasD.length||atrasadasS.length){
+    html+='<div class="card"><div class="sec-title">🔴 Tarefas atrasadas de ontem</div>';
+    atrasadasD.sort(function(a,b){return (a.time||'99:99').localeCompare(b.time||'99:99');});
+    for(var i=0;i<atrasadasD.length;i++){
+      var t=atrasadasD[i];
+      html+='<div class="grow">';
+      html+='<input type="checkbox" onchange="togGen(\'diario\',\''+t.id+'\')" style="margin-top:3px"/>';
+      html+='<div class="ginfo"><div class="gtext">'+esc(t.text)+'</div>';
+      if(t.time) html+='<div class="gtime">⏰ '+t.time+'</div>';
+      html+='</div></div>';
+    }
+    atrasadasS.sort(function(a,b){return (a.task.time||'99:99').localeCompare(b.task.time||'99:99');});
+    for(var i=0;i<atrasadasS.length;i++){
+      var x=atrasadasS[i];
+      html+='<div class="grow">';
+      html+='<input type="checkbox" onchange="togRoomAtrasada(\''+x.day+'\',\''+x.room.id+'\',\''+x.task.id+'\')" style="margin-top:3px"/>';
+      html+='<div class="ginfo"><div class="gtext">'+esc(x.task.text)+' <span style="font-size:11px;color:var(--p400)">· '+esc(x.room.name)+' ('+x.day+')</span></div>';
+      if(x.task.time) html+='<div class="gtime">⏰ '+x.task.time+'</div>';
+      html+='</div></div>';
+    }
+    html+='</div>';
+  }
+
+  /* ── 3. Tarefas de hoje (semanal) ── */
+  if(todayName){
+    var rs=D.semanal[todayName].rooms;
+    var allT=[]; for(var ri=0;ri<rs.length;ri++) for(var ti=0;ti<rs[ri].tasks.length;ti++) allT.push({task:rs[ri].tasks[ti],room:rs[ri]});
+    var pending=allT.filter(function(x){return !x.task.done;});
+    pending.sort(function(a,b){return (a.task.time||'99:99').localeCompare(b.task.time||'99:99');});
+    html+='<div class="card"><div class="sec-title">📋 Hoje — '+todayName+'</div>';
+    if(!allT.length){ html+='<div class="empty">Sem tarefas semanais para hoje.</div>'; }
+    else if(!pending.length){ html+='<div style="color:var(--p400);font-size:14px;padding:8px 0">✅ Todas concluídas!</div>'; }
+    else {
+      for(var i=0;i<pending.length&&i<6;i++){
+        var x=pending[i];
+        html+='<div class="grow">';
+        html+='<input type="checkbox" onchange="togRoom(\''+todayName+'\',\''+x.room.id+'\',\''+x.task.id+'\')" style="margin-top:3px"/>';
+        html+='<div class="ginfo"><div class="gtext">'+esc(x.task.text)+' <span style="font-size:11px;color:var(--p400)">· '+esc(x.room.name)+'</span></div>';
+        if(x.task.time) html+='<div class="gtime">⏰ '+x.task.time+'</div>';
+        html+='</div></div>';
+      }
+    }
+    html+='</div>';
+  }
+
+  /* ── 4. Diário de hoje ── */
+  var dp=D.diario.tasks.filter(function(t){return !t.done&&!t.atrasada;});
+  dp.sort(function(a,b){return (a.time||'99:99').localeCompare(b.time||'99:99');});
+  html+='<div class="card"><div class="sec-title">☀️ Diário de hoje</div>';
+  if(!dp.length){ html+='<div style="color:var(--p400);font-size:14px;padding:8px 0">✅ Tudo feito hoje!</div>'; }
+  else {
+    for(var i=0;i<dp.length;i++){
+      var t=dp[i];
+      html+='<div class="grow">';
+      html+='<input type="checkbox" onchange="togGen(\'diario\',\''+t.id+'\')" style="margin-top:3px"/>';
+      html+='<div class="ginfo"><div class="gtext">'+esc(t.text)+'</div>';
+      if(t.time) html+='<div class="gtime">⏰ '+t.time+'</div>';
+      html+='</div></div>';
+    }
+  }
+  html+='<div class="prog-wrap" style="margin-top:10px"><div class="prog-bar" style="width:'+(dt?Math.round(dd/dt*100):0)+'%"></div></div>';
+  html+='</div>';
+
   document.getElementById('resumo-body').innerHTML=html;
 }
 
 function renderNotas(){
-  const a=document.getElementById('notes-area');
+  var a=document.getElementById('notes-area');
   a.value=D.notas||'';
-  a.oninput=()=>{D.notas=a.value;save()};
+  a.oninput=function(){D.notas=a.value; save();};
 }
 
 function renderAll(){
   renderResumo();
   renderGen('diario');
   renderSemanal();
-  ['mensal','bimestral','semestral'].forEach(c=>renderGen(c));
+  renderGen('mensal');
+  renderGen('bimestral');
+  renderGen('semestral');
   renderNotas();
 }
 
+/* ─── init ─── */
 document.getElementById('hdate').textContent=new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'});
+migrateAlerts();
+checkDailyReset();
 renderAll();
+
+/* atualiza alertas a cada minuto */
+setInterval(function(){
+  var tab=document.querySelector('.tab.active');
+  if(tab && tab.id==='tab-resumo') renderResumo();
+},60000);
 </script>
 </body>
 </html>
