@@ -428,6 +428,10 @@
   .ex-run-opcao.correta { border-color: #16a34a; background: #f0fdf4; }
   .ex-run-opcao.errada { border-color: #dc2626; background: #fef2f2; }
   .ex-run-opcao.gabarito { border-color: #16a34a; background: #dcfce7; }
+  .ex-op-speak { margin-left: auto; flex-shrink: 0; background: none; border: 1.5px solid #d1d5db; border-radius: 50%; width: 26px; height: 26px; cursor: pointer; font-size: 0.75rem; color: #9ca3af; transition: all 0.18s; display: flex; align-items: center; justify-content: center; padding: 0; }
+  .ex-op-speak:hover { border-color: var(--verde-iff); color: var(--verde-iff); background: #f0fdf4; }
+  body.dark .ex-op-speak { border-color: #334155; color: #64748b; }
+  body.dark .ex-op-speak:hover { border-color: var(--verde-iff); color: var(--verde-iff); background: #0e2a1a; }
   .ex-run-feedback { font-size: 0.88rem; padding: 10px 14px; border-radius: 8px; margin-bottom: 16px; }
   .ex-run-feedback.ok { background: #dcfce7; color: #15803d; }
   .ex-run-feedback.nok { background: #fee2e2; color: #b91c1c; }
@@ -1789,7 +1793,9 @@ function renderExamePergunta() {
   const opcoesHtml = q.ops.map((op,i)=>`
     <button class="ex-run-opcao" onclick="responderExame(${i})" id="ex-op-${i}">
       <span class="op-letra">${letras[i]})</span><span>${op}</span>
+      <button class="ex-op-speak" onclick="event.stopPropagation();falar('${op.replace(/'/g,"\\'").replace(/\n/g,' ')}')" title="Ouvir alternativa">🔊</button>
     </button>`).join('');
+  const qTextoFalar = q.q.replace(/'/g,"\\'").replace(/\n/g,' ');
   document.getElementById('exame-runner').innerHTML = `
     <div class="ex-run-header">
       <button class="ex-run-back" onclick="voltarListaExames()">← Provas</button>
@@ -1798,7 +1804,7 @@ function renderExamePergunta() {
     </div>
     <div class="ex-run-progbar"><div class="ex-run-progbar-inner" style="width:${pct}%"></div></div>
     <div class="ex-run-secao">${sec.nome}</div>
-    <div class="ex-run-nq">Questão ${q.n}</div>
+    <div class="ex-run-nq">Questão ${q.n} <button class="btn-speak-quiz" onclick="falar('${qTextoFalar}')">🔊 Ouvir</button></div>
     <div class="ex-run-enunciado">${q.q.replace(/\n/g,'<br>')}</div>
     <div class="ex-run-opcoes" id="ex-run-opcoes">${opcoesHtml}</div>
     <div id="ex-feedback"></div>
@@ -1811,8 +1817,9 @@ function responderExame(idx) {
   const qIdx = getQIndex();
   if (exRespostas[qIdx] !== null) return;
   exRespostas[qIdx] = idx;
-  // Disable all buttons
+  // Disable all option buttons (re-enable nested speak buttons)
   document.querySelectorAll('.ex-run-opcao').forEach(b=>b.disabled=true);
+  document.querySelectorAll('.ex-op-speak').forEach(b=>b.disabled=false);
   // Highlight
   const btns = document.querySelectorAll('.ex-run-opcao');
   if (idx === q.g) {
